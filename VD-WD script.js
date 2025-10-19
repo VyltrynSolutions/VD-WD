@@ -39,6 +39,10 @@ window.history.scrollRestoration = "manual";
 /* ------------------------------------------------------
    2. PHASE 1 — LOGO MOVEMENT + HEADER FADE
 ------------------------------------------------------ */
+// Mobile-friendly logo animation adjustments
+let logoEndScale = window.innerWidth <= 768 ? 0.5 : 0.35;
+let logoYPercent = window.innerWidth <= 768 ? -60 : -120;
+
 const logoTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: "#main-content",
@@ -50,9 +54,10 @@ const logoTimeline = gsap.timeline({
 });
 
 logoTimeline.to("#hero-logo-wrap", {
-  yPercent: -79,
-  scale: 0.18
+  yPercent: logoYPercent,
+  scale: logoEndScale
 }, 0);
+
 
 logoTimeline.to("#topbar", {
   backgroundColor: "rgba(255,255,255,0.9)",
