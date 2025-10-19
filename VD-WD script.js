@@ -73,6 +73,19 @@ logoTimeline.to("#topbar", {
   backdropFilter: "blur(10px)",
 }, 0);
 
+/* -------------------------------------------
+   FIX: Recalculate ScrollTrigger on viewport resize (mobile browser UI changes)
+------------------------------------------- */
+let resizeTimeout;
+
+window.addEventListener("resize", () => {
+  // Debounce resize events (mobile browsers fire many per second)
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    ScrollTrigger.refresh(); // force GSAP to recalc trigger positions
+  }, 250);
+});
+
 
 /* ------------------------------------------------------
    3. PHASE 2 — INTRO TEXT APPEARANCE & EXIT
@@ -89,8 +102,8 @@ const introTimeline = gsap.timeline({
 introTimeline.to(".intro h1", { autoAlpha: 1, y: 0 }, 0);
 introTimeline.to(".intro .mission", { autoAlpha: 1, y: 0 }, 0.2);
 introTimeline.to(".intro", {
-  scale: 1.1,
-  autoAlpha: 0,
+  scale: 1,
+  autoAlpha: 1,
   duration: 1.2
 }, 0.8);
 
