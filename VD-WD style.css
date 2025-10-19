@@ -1,0 +1,183 @@
+/* ======================================================
+   VD-WD STYLE.CSS
+   ------------------------------------------------------
+   PURPOSE:
+   This file defines layout, typography, and structure
+   for the Vyltryn Solutions single-page demo.
+
+   STRUCTURE:
+   1. Global Reset & Variables
+   2. Body & Main Layout
+   3. Header (Topbar)
+   4. Hero Logo (center logo that animates into header)
+   5. Section Styles (intro, services, outro, footer)
+   6. Responsive Adjustments
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   1. GLOBAL RESET & VARIABLES
+   ------------------------------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding doesn’t affect width */
+}
+
+:root {
+  --bg-light: #f9f9f9;          /* Background color */
+  --text-dark: #1c1c1c;         /* Primary text color */
+  --accent-warm: #c8a97e;       /* Warm neutral accent (used subtly) */
+  --fade-speed: 0.6s;           /* Consistent fade transition speed */
+  --font-main: "Nourd", sans-serif; /* Main font */
+}
+
+/* ------------------------------------------------------
+   2. BODY & MAIN LAYOUT
+   ------------------------------------------------------ */
+body {
+  font-family: var(--font-main);
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  overflow-x: hidden; /* Prevents sideways scroll during animation */
+  scroll-behavior: smooth; /* Ensures nice scroll transitions */
+}
+
+main {
+  position: relative;
+  width: 100%;
+  margin-top: 100vh; /* Makes sure the main content starts after hero logo view */
+  z-index: 2;
+}
+
+/* ------------------------------------------------------
+   3. HEADER (TOPBAR)
+   ------------------------------------------------------ */
+#topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px; /* Matches logo’s final resting size area */
+  background-color: rgba(255, 255, 255, 0); /* Transparent initially */
+  backdrop-filter: blur(0px); /* Optional for later fade-in glass effect */
+  transition: background-color var(--fade-speed) ease,
+              backdrop-filter var(--fade-speed) ease;
+  display: flex;
+  justify-content: center;   /* center logo inside header */
+  align-items: center;       /* vertical center alignment */
+  z-index: 10;
+}
+
+/* ------------------------------------------------------
+   4. HERO LOGO (CENTERED ANIMATED LOGO)
+   ------------------------------------------------------ */
+#hero-logo-wrap {
+  position: fixed; /* Keeps logo independent of content */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Perfect center alignment */
+  z-index: 11;
+}
+
+#hero-logo-wrap img {
+  width: 1500px; /* Starting size */
+  height: auto;
+  transition: width var(--fade-speed) ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------
+   5. SECTION STYLES
+   ------------------------------------------------------ */
+section {
+  width: 100%;
+  padding: 300px 8%;
+  text-align: center;
+}
+
+/* --- Intro & Mission --- */
+.intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 0; /* Hidden initially, revealed by GSAP */
+  transform: translateY(40px); /* Moved down slightly for scroll animation */
+  padding-top: 10px 8%;
+}
+
+.intro .mission {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  padding-top: 5px 8%;
+  padding-bottom: 200px 8%;
+}
+
+/* --- Services Section --- */
+.services {
+  background-color: #fff;
+}
+
+.services h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.service-card {
+  background: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 40px 20px;
+  opacity: 0; /* Hidden for GSAP fade-in */
+  transform: scale(0.95); /* Slightly smaller to “pop” on appearance */
+  transition: transform var(--fade-speed) ease, opacity var(--fade-speed) ease;
+}
+
+.service-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent-warm); /* Warm accent tone */
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* --- Outro Section --- */
+.outro {
+  background-color: #f9f9f9;
+  opacity: 0;
+  transform: translateY(10px); /* lift it a bit higher than before */
+  padding: 500px 8%;            /* reduce top/bottom spacing slightly */
+}
+
+/* --- Footer --- */
+footer {
+  background-color: rgba(0,0,0,0.7);   /* semi-transparent glassy black */
+  backdrop-filter: blur(10px);         /* same as header */
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------
+   6. RESPONSIVE ADJUSTMENTS
+   ------------------------------------------------------ */
+@media (max-width: 768px) {
+  #hero-logo-wrap img {
+    width: 180px;
+  }
+  .intro h1 {
+    font-size: 2rem;
+  }
+}
