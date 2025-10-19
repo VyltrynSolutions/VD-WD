@@ -175,7 +175,7 @@ footer {
    ------------------------------------------------------ */
 @media (max-width: 768px) {
   #hero-logo-wrap img {
-    width: 300px; /* bigger so it’s visible */
+    width: 600px; /* bigger so it’s visible */
   }
   .intro h1 {
     font-size: 2rem;
