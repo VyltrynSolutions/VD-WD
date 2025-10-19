@@ -40,8 +40,6 @@ window.history.scrollRestoration = "manual";
    2. PHASE 1 — LOGO MOVEMENT + HEADER FADE
 ------------------------------------------------------ */
 // Mobile-friendly logo animation adjustments
-let logoEndScale = window.innerWidth <= 768 ? 0.5 : 0.35;
-let logoYPercent = window.innerWidth <= 768 ? -60 : -120;
 
 const logoTimeline = gsap.timeline({
   scrollTrigger: {
@@ -53,10 +51,23 @@ const logoTimeline = gsap.timeline({
   }
 });
 
-logoTimeline.to("#hero-logo-wrap", {
-  yPercent: logoYPercent,
-  scale: logoEndScale
-}, 0);
+// Logo animation based on screen size
+if (window.innerWidth <= 768) {
+  // Mobile animation
+  logoTimeline.to("#hero-logo-wrap", {
+    yPercent: -110, // move logo further up (increase this for more movement)
+    scale: 0.4,     // adjust this to make it larger/smaller on mobile
+    duration: 1
+  }, 0);
+} else {
+  // Desktop animation
+  logoTimeline.to("#hero-logo-wrap", {
+    yPercent: -79,
+    scale: 0.18,
+    duration: 1
+  }, 0);
+}
+
 
 
 logoTimeline.to("#topbar", {
