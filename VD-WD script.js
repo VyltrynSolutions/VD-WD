@@ -56,7 +56,7 @@ if (window.innerWidth <= 768) {
   // Mobile animation
   logoTimeline.to("#hero-logo-wrap", {
     yPercent: -110, // move logo further up (increase this for more movement)
-    scale: 0.4,     // adjust this to make it larger/smaller on mobile
+    scale: 0.55,     // adjust this to make it larger/smaller on mobile
     duration: 1
   }, 0);
 } else {
@@ -68,7 +68,11 @@ if (window.innerWidth <= 768) {
   }, 0);
 }
 
+// Run on load
+setLogoAnimation();
 
+// Update dynamically on resize
+window.addEventListener("resize", setLogoAnimation);
 
 logoTimeline.to("#topbar", {
   backgroundColor: "rgba(255,255,255,0.9)",
