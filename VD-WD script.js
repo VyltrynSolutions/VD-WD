@@ -47,7 +47,8 @@ const logoTimeline = gsap.timeline({
     start: "top 90%",
     end: "top 10%",
     scrub: true,
-    ease: "power1.inOut"
+    ease: "power1.inOut",
+    invalidateOnRefresh: true // 👈 recalc positions on refresh
   }
 });
 
@@ -74,18 +75,25 @@ logoTimeline.to("#topbar", {
 }, 0);
 
 /* -------------------------------------------
-   FIX: Recalculate ScrollTrigger on viewport resize (mobile browser UI changes)
+   FIX: Mobile Browser Address Bar Resize Handling
 ------------------------------------------- */
 let resizeTimeout;
 
-window.addEventListener("resize", () => {
-  // Debounce resize events (mobile browsers fire many per second)
+function refreshScroll() {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
-    ScrollTrigger.refresh(); // force GSAP to recalc trigger positions
-  }, 250);
-});
+    ScrollTrigger.refresh(true); // force remeasure
+  }, 300);
+}
 
+// Listen to both resize and orientation changes
+window.addEventListener("resize", refreshScroll);
+window.addEventListener("orientationchange", refreshScroll);
+
+// Handle mobile browser UI shrinking/expanding (URL bar hiding)
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", refreshScroll);
+}
 
 /* ------------------------------------------------------
    3. PHASE 2 — INTRO TEXT APPEARANCE & EXIT
@@ -147,6 +155,10 @@ gsap.to(".outro", {
   ease: "power2.out"
 });
 
+// Final safety refresh after page load
+window.addEventListener("load", () => {
+  setTimeout(() => ScrollTrigger.refresh(true), 500);
+});
 
 /* ------------------------------------------------------
    6. PERFORMANCE / GPU HINTS
