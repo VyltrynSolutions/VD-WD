@@ -160,6 +160,17 @@ window.addEventListener("load", () => {
   setTimeout(() => ScrollTrigger.refresh(true), 500);
 });
 
+// --- Mobile viewport fix ---
+if (window.visualViewport) {
+  let lastHeight = window.visualViewport.height;
+  window.visualViewport.addEventListener('resize', () => {
+    if (Math.abs(window.visualViewport.height - lastHeight) > 100) {
+      ScrollTrigger.refresh();
+      lastHeight = window.visualViewport.height;
+    }
+  });
+}
+
 /* ------------------------------------------------------
    6. PERFORMANCE / GPU HINTS
 ------------------------------------------------------ */
