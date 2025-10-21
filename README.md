@@ -1,2 +1,2 @@
-# VD-WD
-Vyltryn Demo - Web Development
+# Vyltryn Demo - Single Page
+Demo showcasing Web Development abilities.
